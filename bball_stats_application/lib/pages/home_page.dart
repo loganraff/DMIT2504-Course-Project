@@ -1,4 +1,5 @@
 import 'package:bball_stats_application/models/game.dart';
+import 'package:bball_stats_application/pages/averages_page.dart';
 import 'package:flutter/material.dart';
 import '../services/database_service.dart';
 
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: _appBar(),
+      appBar: _appBar(context),
       body: _buildUI(),
       floatingActionButton: FloatingActionButton(
         onPressed: _displayTextInputDialog,
@@ -30,17 +31,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  PreferredSizeWidget _appBar() {
-    return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      title: const Text(
-        "Stats",
-        style: TextStyle(
-          color: Colors.white,
-        ),
+ PreferredSizeWidget _appBar(BuildContext context) {
+  return AppBar(
+    backgroundColor: Theme.of(context).colorScheme.primary,
+    title: const Text(
+      "Stats",
+      style: TextStyle(
+        color: Colors.white,
       ),
-    );
-  }
+    ),
+    actions: [
+      IconButton(
+        icon: Icon(Icons.equalizer),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AveragesPage()),
+          );
+        },
+      ),
+    ],
+  );
+}
+
 
   Widget _buildUI() {
     return SafeArea(
