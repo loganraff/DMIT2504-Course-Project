@@ -74,111 +74,131 @@ class _HomePageState extends State<HomePage> {
                     horizontal: 20,
                   ),
                   child: ListTile(
-                    tileColor: Theme.of(context).colorScheme.primaryContainer,
-                    title: Text("Game Stats"),
-                    subtitle: Text("Points: ${game.points}\n"
-                        'Rebounds: ${game.rebounds}\n'
-                        'Assists: ${game.assists}\n'
-                        'Steals: ${game.steals}\n'
-                        'Blocks: ${game.blocks}\n'),
-                    trailing: IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () async {
-                        final _formKey = GlobalKey<FormState>();
-                        Game updatedGame = Game(
-                          points: game.points,
-                          rebounds: game.rebounds,
-                          assists: game.assists,
-                          steals: game.steals,
-                          blocks: game.blocks,
-                        );
-                        return showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                  title: Text("Update Game Stats"),
-                                  content: Form(
-                                    key: _formKey,
-                                    child: Column(
-                                      children: <Widget>[
-                                        TextFormField(
-                                          initialValue: '${game.points}',
-                                          decoration: InputDecoration(
-                                              labelText: 'Points'),
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (value) {
-                                            updatedGame.points =
-                                                int.parse(value!);
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: '${game.rebounds}',
-                                          decoration: InputDecoration(
-                                              labelText: 'Rebounds'),
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (value) {
-                                            updatedGame.rebounds =
-                                                int.parse(value!);
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: '${game.assists}',
-                                          decoration: InputDecoration(
-                                              labelText: 'Assists'),
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (value) {
-                                            updatedGame.assists =
-                                                int.parse(value!);
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: '${game.steals}',
-                                          decoration: InputDecoration(
-                                              labelText: 'Steals'),
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (value) {
-                                            updatedGame.steals =
-                                                int.parse(value!);
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: '${game.blocks}',
-                                          decoration: InputDecoration(
-                                              labelText: 'Blocks'),
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (value) {
-                                            updatedGame.blocks =
-                                                int.parse(value!);
-                                          },
-                                        ),
-                                      ],
+                      tileColor: Theme.of(context).colorScheme.primaryContainer,
+                      title: Text("Game Stats"),
+                      subtitle: Text("Points: ${game.points}\n"
+                          'Rebounds: ${game.rebounds}\n'
+                          'Assists: ${game.assists}\n'
+                          'Steals: ${game.steals}\n'
+                          'Blocks: ${game.blocks}\n'),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () async {
+                              final _formKey = GlobalKey<FormState>();
+                              Game updatedGame = Game(
+                                points: game.points,
+                                rebounds: game.rebounds,
+                                assists: game.assists,
+                                steals: game.steals,
+                                blocks: game.blocks,
+                              );
+                              return showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Update Game Stats"),
+                                    content: Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        children: <Widget>[
+                                          TextFormField(
+                                            initialValue: '${game.points}',
+                                            decoration: InputDecoration(
+                                                labelText: 'Points'),
+                                            keyboardType:
+                                                TextInputType.number,
+                                            onSaved: (value) {
+                                              updatedGame.points =
+                                                  int.parse(value!);
+                                            },
+                                          ),
+                                          TextFormField(
+                                            initialValue:
+                                                '${game.rebounds}',
+                                            decoration: InputDecoration(
+                                                labelText: 'Rebounds'),
+                                            keyboardType:
+                                                TextInputType.number,
+                                            onSaved: (value) {
+                                              updatedGame.rebounds =
+                                                  int.parse(value!);
+                                            },
+                                          ),
+                                          TextFormField(
+                                            initialValue: '${game.assists}',
+                                            decoration: InputDecoration(
+                                                labelText: 'Assists'),
+                                            keyboardType:
+                                                TextInputType.number,
+                                            onSaved: (value) {
+                                              updatedGame.assists =
+                                                  int.parse(value!);
+                                            },
+                                          ),
+                                          TextFormField(
+                                            initialValue: '${game.steals}',
+                                            decoration: InputDecoration(
+                                                labelText: 'Steals'),
+                                            keyboardType:
+                                                TextInputType.number,
+                                            onSaved: (value) {
+                                              updatedGame.steals =
+                                                  int.parse(value!);
+                                            },
+                                          ),
+                                          TextFormField(
+                                            initialValue: '${game.blocks}',
+                                            decoration: InputDecoration(
+                                                labelText: 'Blocks'),
+                                            keyboardType:
+                                                TextInputType.number,
+                                            onSaved: (value) {
+                                              updatedGame.blocks =
+                                                  int.parse(value!);
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text("Cancel"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: Text("Update"),
-                                      onPressed: () {
-                                        _formKey.currentState!.save();
-                                        _databaseService.updateGame(
-                                            gameID, updatedGame);
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ]);
-                            });
-                      },
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text("Update"),
+                                        onPressed: () {
+                                          _formKey.currentState!.save();
+                                          _databaseService.updateGame(
+                                              gameID, updatedGame);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ]
+                                  );
+                                }
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              _databaseService.deleteGame(gameID);
+                            },
+                          )
+                        ],
+                      )
                     ),
-                  ),
                 );
               },
             );
           },
-        ));
+        )
+      );
   }
 }
