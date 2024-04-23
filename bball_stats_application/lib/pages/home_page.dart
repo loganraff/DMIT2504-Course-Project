@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       body: _buildUI(),
       floatingActionButton: FloatingActionButton(
         onPressed: _displayTextInputDialog,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Colors.orange,
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
  PreferredSizeWidget _appBar(BuildContext context) {
   return AppBar(
-    backgroundColor: Theme.of(context).colorScheme.primary,
+    backgroundColor: Colors.orange,
     title: const Text(
       "Stats",
       style: TextStyle(
@@ -88,13 +88,23 @@ class _HomePageState extends State<HomePage> {
                     horizontal: 20,
                   ),
                   child: ListTile(
-                      tileColor: Theme.of(context).colorScheme.primaryContainer,
-                      title: Text("Game Stats"),
-                      subtitle: Text("Points: ${game.points}\n"
-                          'Rebounds: ${game.rebounds}\n'
-                          'Assists: ${game.assists}\n'
-                          'Steals: ${game.steals}\n'
-                          'Blocks: ${game.blocks}\n'),
+                      tileColor: Colors.black,
+                        title: Text(
+                        "Game Stats",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        ),
+                        subtitle: Text(
+                        "Points: ${game.points}\n"
+                        'Rebounds: ${game.rebounds}\n'
+                        'Assists: ${game.assists}\n'
+                        'Steals: ${game.steals}\n'
+                        'Blocks: ${game.blocks}\n',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        ),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -179,20 +189,21 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     actions: <Widget>[
                                       TextButton(
-                                        child: Text("Cancel"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
+                                      child: Text("Cancel", style: TextStyle(color: Colors.black)),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
                                       ),
                                       TextButton(
-                                        child: Text("Update"),
-                                        onPressed: () {
-                                          _formKey.currentState!.save();
-                                          _databaseService.updateGame(
-                                              gameID, updatedGame);
-                                          Navigator.of(context).pop();
-                                        },
+                                      child: Text("Update", style: TextStyle(color: Colors.black)),
+                                      onPressed: () {
+                                        _formKey.currentState!.save();
+                                        _databaseService.updateGame(
+                                          gameID, updatedGame);
+                                        Navigator.of(context).pop();
+                                      },
                                       ),
+                                    ]
                                     ]
                                   );
                                 }
@@ -275,7 +286,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: <Widget>[
           MaterialButton(
-            color: Theme.of(context).colorScheme.primary,
+            color: Colors.black,
             textColor: Colors.white,
             child: const Text('Create'),
             onPressed: () {
