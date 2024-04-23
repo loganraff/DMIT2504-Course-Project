@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
       title: const Text(
-        "Todo",
+        "Stats",
         style: TextStyle(
           color: Colors.white,
         ),
@@ -67,13 +67,23 @@ class _HomePageState extends State<HomePage> {
               itemCount: games.length,
               itemBuilder: (context, index) {
                 Game game = games[index].data();
-                print(game);
+                String gameID = games[index].id;
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
                   ),
-                  child: ListTile(),
+                  child: ListTile(
+                    tileColor: Theme.of(context).colorScheme.primaryContainer,
+                    title: Text("Game Stats"), 
+                    subtitle: Text(
+                      "Points: ${game.points}\n"
+                      'Rebounds: ${game.rebounds}\n'
+                      'Assists: ${game.assists}\n'
+                      'Steals: ${game.steals}\n'
+                      'Blocks: ${game.blocks}\n'
+                    ), 
+                  ),
                 );
               },
             );

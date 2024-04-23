@@ -23,4 +23,13 @@ class DatabaseService {
   void addGame(Game game) async {
     _gamesRef.add(game);
   }
+
+  
+  void updateGame(String gameId, Game game) {
+    _gamesRef.doc(gameId).update(game.toJson());
+  }
+
+  void deleteGame(String gameId) {
+    _gamesRef.doc(gameId).delete();
+  }
 }
