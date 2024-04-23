@@ -24,7 +24,6 @@ class DatabaseService {
     _gamesRef.add(game);
   }
 
-  
   void updateGame(String gameId, Game game) {
     _gamesRef.doc(gameId).update(game.toJson());
   }
