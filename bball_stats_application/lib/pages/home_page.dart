@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       ),
                                     ]
-                                    ]
+                                    
                                   );
                                 }
                               );
@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               _databaseService.deleteGame(gameID);
                             },
-                          )
+                          ),
                         ],
                       )
                     ),
