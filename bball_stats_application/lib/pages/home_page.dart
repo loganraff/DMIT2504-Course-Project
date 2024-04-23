@@ -1,3 +1,4 @@
+import 'package:bball_stats_application/models/game.dart';
 import 'package:flutter/material.dart';
 import '../services/database_service.dart';
 
@@ -17,14 +18,14 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       appBar: _appBar(),
       body: _buildUI(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _displayTextInputDialog,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _displayTextInputDialog,
+      //   backgroundColor: Theme.of(context).colorScheme.primary,
+      //   child: const Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //   ),
+      // ),
     );
   }
 
@@ -56,7 +57,26 @@ class _HomePageState extends State<HomePage> {
         child: StreamBuilder(
           stream: _databaseService.getGames(),
           builder: (context, snapshot) {
-            return ListView();
+            List games = snapshot.data?.docs ?? [];
+            if (games.isEmpty) {
+              return const Center(
+                child: Text("No games found"),
+              );
+            }
+            return ListView.builder(
+              itemCount: games.length,
+              itemBuilder: (context, index) {
+                Game game = games[index].data();
+                print(game);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  child: ListTile(),
+                );
+              },
+            );
           },
         ));
   }

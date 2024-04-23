@@ -13,14 +13,14 @@ class Game {
     required this.blocks,
   });
 
-  Game.fromJson(Map<String, Object?> json)
-      : this(
-          points: json['points']! as int,
-          assists: json['assists']! as int,
-          rebounds: json['rebounds']! as int,
-          steals: json['steals']! as int,
-          blocks: json['blocks']! as int,
-        );
+Game.fromJson(Map<String, Object?> json)
+    : this(
+        points: json['points'] != null ? json['points']! as int : 0,
+        assists: json['assists'] != null ? json['assists']! as int : 0,
+        rebounds: json['rebounds'] != null ? json['rebounds']! as int : 0,
+        steals: json['steals'] != null ? json['steals']! as int : 0,
+        blocks: json['blocks'] != null ? json['blocks']! as int : 0,
+      );
 
   Game copyWith({
     int? points,
