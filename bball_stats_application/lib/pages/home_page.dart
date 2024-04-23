@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final DatabaseService _databaseService = DatabaseService();
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,14 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       appBar: _appBar(),
       body: _buildUI(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _displayTextInputDialog,
-      //   backgroundColor: Theme.of(context).colorScheme.primary,
-      //   child: const Icon(
-      //     Icons.add,
-      //     color: Colors.white,
-      //   ),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _displayTextInputDialog,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
@@ -201,4 +202,80 @@ class _HomePageState extends State<HomePage> {
         )
       );
   }
+
+ void _displayTextInputDialog() async {
+  final _formKey = GlobalKey<FormState>();
+  Game newGame = Game(
+    points: 0,
+    rebounds: 0,
+    assists: 0,
+    steals: 0,
+    blocks: 0,
+  );
+
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Add a Game'),
+        content: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Points'),
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  newGame.points = int.parse(value!);
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Rebounds'),
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  newGame.rebounds = int.parse(value!);
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Assists'),
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  newGame.assists = int.parse(value!);
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Steals'),
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  newGame.steals = int.parse(value!);
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Blocks'),
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  newGame.blocks = int.parse(value!);
+                },
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            color: Theme.of(context).colorScheme.primary,
+            textColor: Colors.white,
+            child: const Text('Create'),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                _databaseService.addGame(newGame);
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 }
